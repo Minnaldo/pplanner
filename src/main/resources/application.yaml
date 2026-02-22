@@ -1,3 +1,28 @@
 spring:
   application:
     name: todolist
+
+  # H2 DB 설정
+  datasource:
+    url: jdbc:h2:~/pplannerdb   # 메모리 DB 이름 pplannerdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # h2 콘솔 설정 (웹에서 DB를 확인 가능하게)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console         # 이 경로로 접속하면 콘솔 열림
+
+  # JPA 설정
+  jpa:
+    # Hibernate가 자동으로 DB 스키마를 생성/갱신하는 방식
+    hibernate:
+      ddl-auto: create          # 엔티티 기준으로 테이블 생성
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true              # 실행되는 SQL을 콘솔에 출력
+
+# 서버 설정
+server:
+  port: 8080                    # 포트는 8080 (기본)
