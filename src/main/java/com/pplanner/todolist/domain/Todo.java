@@ -39,4 +39,5 @@ public class Todo {
     public void updateTitle(String title) {
         this.title = title;
     }
+
 }

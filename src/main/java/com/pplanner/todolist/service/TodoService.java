@@ -61,4 +61,14 @@ public class TodoService {
         return new TodoResponse(todo.getId(), todo.getTitle());
 
     }
+
+    @Transactional
+    public void delete(Long id) {
+
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new TodoNotFoundException("해당 Todo가 없습니다."));
+
+        todoRepository.deleteById(id);
+    }
+
 }
