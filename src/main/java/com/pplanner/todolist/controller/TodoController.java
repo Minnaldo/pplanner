@@ -2,8 +2,10 @@ package com.pplanner.todolist.controller;
 
 import com.pplanner.todolist.dto.TodoCreateRequest;
 import com.pplanner.todolist.dto.TodoResponse;
+import com.pplanner.todolist.dto.TodoUpdateRequest;
 import com.pplanner.todolist.service.TodoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,5 +30,11 @@ public class TodoController {
     @GetMapping("/{id}")
     public TodoResponse findById(@PathVariable Long id) {
         return todoService.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TodoResponse> update(@PathVariable Long id, @RequestBody TodoUpdateRequest request) {
+
+        return ResponseEntity.ok(todoService.update(id, request));
     }
 }

@@ -3,10 +3,12 @@ package com.pplanner.todolist.service;
 import com.pplanner.todolist.domain.Todo;
 import com.pplanner.todolist.dto.TodoCreateRequest;
 import com.pplanner.todolist.dto.TodoResponse;
+import com.pplanner.todolist.dto.TodoUpdateRequest;
 import com.pplanner.todolist.exception.TodoNotFoundException;
 import com.pplanner.todolist.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +48,17 @@ public class TodoService {
                 .orElseThrow(() -> new TodoNotFoundException("해당 Todo가 없습니다."));
 
         return TodoResponse.from(todo);
+    }
+
+    @Transactional
+    public TodoResponse update(Long id, TodoUpdateRequest request) {
+
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new TodoNotFoundException("해당 Todo가 없습니다."));
+
+        todo.updateTitle(request.getTitle());
+
+        return new TodoResponse(todo.getId(), todo.getTitle());
+
     }
 }
