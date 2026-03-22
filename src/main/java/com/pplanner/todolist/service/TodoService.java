@@ -56,9 +56,18 @@ public class TodoService {
         Todo todo = todoRepository.findById(id)
                 .orElseThrow(() -> new TodoNotFoundException("해당 Todo가 없습니다."));
 
-        todo.updateTitle(request.getTitle());
+        if (request.getTitle() != null) {
+            todo.updateTitle(request.getTitle());
+        }
+        if (request.getCompleted() != null) {
+            if (request.getCompleted()) {
+                todo.complete();
+            } else {
+                todo.uncomplete();
+            }
+        }
 
-        return new TodoResponse(todo.getId(), todo.getTitle());
+        return TodoResponse.from(todo);
 
     }
 

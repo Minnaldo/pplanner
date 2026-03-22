@@ -36,6 +36,10 @@ public class Todo {
         this.completed = true;
     }
 
+    public void uncomplete() {
+        this.completed = false;
+    }
+
     public void updateTitle(String title) {
         this.title = title;
     }
